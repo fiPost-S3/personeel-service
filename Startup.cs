@@ -36,6 +36,7 @@ namespace personeel_service
                           .AllowAnyOrigin();
                       });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,8 +45,6 @@ namespace personeel_service
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "personeel-service v1"));
             }
 
             app.UseCors(MyAllowSpecificOrigins);
