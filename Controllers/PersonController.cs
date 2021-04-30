@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -24,14 +25,21 @@ namespace personeel_service.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Person>> GetPerson()
         {
-            return _service.GetAll(); ;
+            return _service.GetAll();
         }
 
         // GET: api/Persons/5
         [HttpGet("{id}")]
         public ActionResult<Person> GetPerson(string id)
         {
-            return _service.GetById(id);
+            try
+            {
+                return _service.GetById(id);
+            }
+            catch(Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }
