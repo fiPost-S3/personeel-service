@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using personeel_service.Models;
+using personeel_service.Services;
 
 namespace personeel_service.Controllers
 {
@@ -11,31 +13,33 @@ namespace personeel_service.Controllers
     [ApiController]
     public class PersonController : Controller
     {
-        private static List<Person> persons = new List<Person>()
+
+        private readonly IPersonService _service;
+
+        public PersonController(IPersonService service)
         {
-            new Person("1", "Jaap van der Meer", "jaap@jaap.nl"),
-            new Person("2", "Aron Heesakkers", "aron@aron.nl")
-        };
+            _service = service;
+        }
 
         // GET: api/Persons
         [HttpGet]
         public ActionResult<IEnumerable<Person>> GetPerson()
         {
-            return persons;
+            return _service.GetAll();
         }
 
         // GET: api/Persons/5
         [HttpGet("{id}")]
         public ActionResult<Person> GetPerson(string id)
         {
-            var person = persons.Find(p => p.Id == id);
-
-            if (person == null)
+            try
             {
-                return NotFound();
+                return _service.GetById(id);
             }
-
-            return person;
+            catch(Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }

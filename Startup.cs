@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using personeel_service.Services;
 
 namespace personeel_service
 {
@@ -36,6 +37,9 @@ namespace personeel_service
                           .AllowAnyOrigin();
                       });
             });
+
+            // Inject services.
+            services.AddTransient<IPersonService, PersonService>();
 
         }
 
