@@ -41,5 +41,13 @@ namespace personeel_service.Controllers
                 return NotFound(e.Message);
             }
         }
+
+        // GET: api/Persons
+        [HttpGet]
+        [Route("health")]
+        public ActionResult Health()
+        {
+            return Ok();
+        }
     }
 }
