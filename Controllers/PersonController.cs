@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using personeel_service.Helpers;
 using personeel_service.Models;
 using personeel_service.Services;
 
@@ -36,7 +33,7 @@ namespace personeel_service.Controllers
             {
                 return _service.GetById(id);
             }
-            catch(Exception e)
+            catch(NotFoundException e)
             {
                 return NotFound(e.Message);
             }

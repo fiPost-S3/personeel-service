@@ -1,14 +1,13 @@
-﻿using personeel_service.Models;
-using System;
+﻿using personeel_service.Helpers;
+using personeel_service.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace personeel_service.Services
 {
     public class PersonService : IPersonService
     {
-        private static IEnumerable<Person> persons = new List<Person>()
+        private static readonly IEnumerable<Person> persons = new List<Person>()
         {
             new Person("1", "Jaap van der Meer", "jaap@jaap.nl"),
             new Person("2", "Sverre van Gompel", "sverre@sverre.nl"),
@@ -29,7 +28,7 @@ namespace personeel_service.Services
 
             if (person == null)
             {
-                throw new Exception($"Person with id {id} not found.");
+                throw new NotFoundException($"Person with id {id} not found.");
             }
 
             return person;
