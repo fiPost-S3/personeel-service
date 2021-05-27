@@ -22,7 +22,7 @@ namespace personeel_service.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Person>> GetPerson()
         {
-            return _service.GetAll();
+            return Ok(_service.GetAll());
         }
 
         // GET: api/Persons/5
@@ -31,7 +31,7 @@ namespace personeel_service.Controllers
         {
             try
             {
-                return _service.GetById(id);
+                return Ok(_service.GetById(id));
             }
             catch(NotFoundException e)
             {
