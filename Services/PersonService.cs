@@ -9,12 +9,12 @@ namespace personeel_service.Services
     {
         private static readonly IEnumerable<Person> persons = new List<Person>()
         {
-            new Person("1", "Jaap van der Meer", "jaap@jaap.nl"),
-            new Person("2", "Sverre van Gompel", "sverre@sverre.nl"),
-            new Person("3", "Kevin Wieling", "kevin@kevin.nl"),
-            new Person("4", "Robin de Witte", "robin@robin.nl"),
-            new Person("5", "Sjors Scholten", "sjors@sjors.nl"),
-            new Person("6", "Aron Heesakkers", "aron@aron.nl")
+            new Person("1", "Jaap van der Meer", "fipostspamn@hotmail.com"),
+            new Person("2", "Sverre van Gompel", "fipostspamn@hotmail.com"),
+            new Person("3", "Kevin Wieling", "fipostspamn@hotmail.com"),
+            new Person("4", "Robin de Witte", "fipostspamn@hotmail.com"),
+            new Person("5", "Sjors Scholten", "fipostspamn@hotmail.com"),
+            new Person("6", "Aron Heesakkers", "fipostspamn@hotmail.com")
         };
 
         public List<Person> GetAll()
