@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using personeel_service.Database.Contexts;
 using personeel_service.Helpers;
 using personeel_service.Models;
+using personeel_service.Models.DTO_s;
 using personeel_service.Services;
 
 namespace personeel_service.Controllers
@@ -13,25 +18,49 @@ namespace personeel_service.Controllers
 
         private readonly IPersonService _service;
 
+        /* public PersonController(IPersonService service)
+         {
+             _service = service;
+         }*/
+
+       
         public PersonController(IPersonService service)
         {
             _service = service;
         }
 
+
         // GET: api/Persons
+        //[HttpGet]
+        /*  public ActionResult<IEnumerable<Person>> GetPerson()
+          {
+              return Ok(_service.GetAll());
+          }*/
         [HttpGet]
-        public ActionResult<IEnumerable<Person>> GetPerson()
+        public async Task <IActionResult> GetAllAsync()
         {
-            return Ok(_service.GetAll());
+            try 
+            {
+                return Ok(await _service.GetAllAsync());
+
+            }
+            catch(NotFoundException e)
+            {
+                 
+                return NotFound(e.Message);
+            }
         }
+
+            
+        
 
         // GET: api/Persons/5
         [HttpGet("{id}")]
-        public ActionResult<Person> GetPerson(string id)
+        public async Task <ActionResult<PersonResponse>> GetPerson(string id)
         {
             try
             {
-                return Ok(_service.GetById(id));
+                return Ok(await _service.GetByIdAsync(id));
             }
             catch(NotFoundException e)
             {
