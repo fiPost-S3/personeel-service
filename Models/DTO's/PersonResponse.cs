@@ -10,6 +10,7 @@ namespace personeel_service.Models.DTO_s
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public string FontysId { get; set; }
 
     }
 }

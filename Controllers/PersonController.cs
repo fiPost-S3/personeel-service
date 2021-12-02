@@ -75,5 +75,19 @@ namespace personeel_service.Controllers
         {
             return Ok();
         }
+
+        [HttpGet]
+        [Route("getbyfontysid/{id}")]
+        public async Task<ActionResult<PersonResponse>> GetByFontysId(string id)
+        {
+            try
+            {
+                return Ok(await _service.GetSingleByFontysId(id));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }

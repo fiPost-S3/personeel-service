@@ -13,5 +13,6 @@ namespace personeel_service.Services
        // List<Person> GetAll();
        // Person GetById(string id);
         Task<PersonResponse> GetByIdAsync(string id);
+        Task<PersonResponse> GetSingleByFontysId(string fontysId);
     }
 }

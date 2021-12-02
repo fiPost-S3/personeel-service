@@ -29,7 +29,8 @@ namespace personeel_service.Database.Converters
             {
                 Id = person.Id,
                 Name = person.Name,
-                Email = person.Email
+                Email = person.Email,
+                FontysId = person.FontysId
             };
         }
 

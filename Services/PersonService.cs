@@ -70,5 +70,11 @@ namespace personeel_service.Services
                 return person;
             
         }
+
+        public async Task<PersonResponse> GetSingleByFontysId(string fontysId)
+        {
+            PersonResponse person = _converter.ModelToDto(await _context.Person.FirstOrDefaultAsync(e => e.FontysId == fontysId));
+            return person;
+        }
     }
 }
