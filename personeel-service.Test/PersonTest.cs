@@ -24,10 +24,10 @@ namespace personeel_service.Test
         {
             // Instantiate mocks:
             serviceMock = new Mock<IPersonService>();
-
-            // Create mock data:
-            person1 = new Person("1", "Person_1", "person_1@testmail.com");
-            person2 = new Person("2", "Person_2", "person_2@testmail.com");
+            
+        // Create mock data:
+            person1 = new Person(1, "Person_1", "person_1@testmail.com", "test", 1, "A22222A");
+            person2 = new Person(2, "Person_2", "person_2@testmail.com", "test", 1, "A33333A");
             
             persons.Clear();
             persons.Add(person1);
@@ -43,7 +43,7 @@ namespace personeel_service.Test
         public void GetPersons_Ok()
         {
             // Arrange
-            serviceMock.Setup(x => x.GetAll()).Returns(persons);
+            serviceMock.Setup(x => x.GetAllAsync()).Returns(persons);
             var controller = new PersonController(serviceMock.Object);
 
             // Act
@@ -60,7 +60,7 @@ namespace personeel_service.Test
         public void GetPersonById_Ok()
         {
             // Arrange
-            serviceMock.Setup(x => x.GetById(person1.Id)).Returns(person1);
+            serviceMock.Setup(x => x.GetByIdAsync(person1.Id.ToString)).Returns(person1);
             var controller = new PersonController(serviceMock.Object);
 
             // Act
@@ -76,7 +76,7 @@ namespace personeel_service.Test
         public void GetPersonById_NotFound()
         {
             // Arrange
-            serviceMock.Setup(x => x.GetById(person1.Id)).Throws<NotFoundException>();
+            serviceMock.Setup(x => x.GetByFontysId(person1.Id)).Throws<NotFoundException>();
             var controller = new PersonController(serviceMock.Object);
 
             // Act

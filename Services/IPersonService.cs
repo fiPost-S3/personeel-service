@@ -9,9 +9,7 @@ namespace personeel_service.Services
 {
     public interface IPersonService
     {
-          Task<List<PersonResponse>> GetAllAsync();
-       // List<Person> GetAll();
-       // Person GetById(string id);
+        Task<List<PersonResponse>> GetAllAsync();
         Task<PersonResponse> GetByIdAsync(string id);
         Task<PersonResponse> GetSingleByFontysId(string fontysId);
     }
