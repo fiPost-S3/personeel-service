@@ -1,9 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using personeel_service.Database.Contexts;
+using personeel_service.Database.Converters;
+using personeel_service.Database.DTO_s;
+using personeel_service.Models;
+using personeel_service.Models.DTO_s;
 using personeel_service.Services;
 
 namespace personeel_service
@@ -22,6 +29,13 @@ namespace personeel_service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<KestrelServerOptions>(
+            Configuration.GetSection("Kestrel"));
+
+            var connection = Configuration.GetValue<string>("ConnectionString");
+            services.AddDbContextPool<PersonServiceContext>(
+                options => options.UseSqlServer(connection));
+
             services.AddControllers();
 
             services.AddSwaggerGen();
@@ -41,11 +55,15 @@ namespace personeel_service
             // Inject services.
             services.AddTransient<IPersonService, PersonService>();
 
+            //Inject converter.
+            services.AddScoped<IDtoConverter<Person, PersonRequest, PersonResponse>, DtoConverter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PersonServiceContext context)
         {
+            context.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
